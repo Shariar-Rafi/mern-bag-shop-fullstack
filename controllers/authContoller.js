@@ -8,7 +8,10 @@ module.exports.registerUser = async(req,res)=>{
         let user = await userModel.findOne({email: email})
         
 
-        if(user) return res.status(403).send("You already have an account! Please log in.")
+        if(user){
+            req.flash("error", "You already have an account! Please log in.")
+            return res.status(403).redirect("/")
+        }
 
 
         const saltRounds = 10;
@@ -23,7 +26,7 @@ module.exports.registerUser = async(req,res)=>{
                 })
                 let token = generateToken(createdUser)
                 res.cookie("token", token)
-                res.status(200).send(createdUser); 
+                res.status(200).redirect("/shop"); 
             });
         });
     }catch (err) {
@@ -36,16 +39,20 @@ module.exports.loginUser = async(req,res)=>{
         let {email, password} = req.body
         let user = await userModel.findOne({email})
 
-        if(!user) return res.status(403).send("Email or password incorrect!")
+        if(!user){
+            req.flash("error", "Email or password incorrect!")
+            return res.status(403).redirect("/")
+        }
         
         bcrypt.compare(password, user.password, (err,result)=>{
             if(err) return res.send(err.message);
             if(result){
                 let token = generateToken(user);
                 res.cookie("token", token)
-                res.status(200).send("You can log in now.")
+                res.status(200).redirect("/shop")
             }else{
-                res.status(403).send("Email or password incorrect!")
+                req.flash("error", "Email or password incorrect!")
+                res.status(403).redirect("/")
             }
 
     })}catch (err) {
@@ -54,5 +61,7 @@ module.exports.loginUser = async(req,res)=>{
 }
 
 module.exports.logoutUser = async(req,res)=>{
-    
+    res.cookie("token","")
+    req.flash("error", "User logged out!")
+    res.redirect("/")
 }

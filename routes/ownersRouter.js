@@ -3,8 +3,9 @@ const router = express.Router()
 
 const ownerModel = require("../models/owner-model")
 
-if(process.env.NODE_ENV === "development"){
-    router.post("/create", async (req,res)=>{
+if(process.env.NODE_ENV == "development"){
+    try {
+        router.post("/create", async (req,res)=>{
         let owners = await ownerModel.find()
         if(owners.length > 0){
             return res.status(503).send("You do not have any permission to create new owner!")
@@ -20,6 +21,9 @@ if(process.env.NODE_ENV === "development"){
 
         res.status(200).send(createdOwner)
     })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 router.get("/", (req,res)=>{
