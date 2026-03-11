@@ -1,0 +1,53 @@
+<h2 class="text-2xl font-bold mb-4 text-blue-800 ">Ongoing Order Details:</h2>
+                        <div class="flex gap-10 items-center">
+                            <div class="w-fit">
+                            <div class="w-60">
+                                <div class="w-full h-52 flex items-center justify-center bg-[<%= user.order[0].bgColor %>]">
+                                    <img class="h-[12rem]" src="data:image/jpeg;base64,<%= user.order[0].image.toString('base64') %>"
+                                        alt="<%= user.order[0].name %>">
+                                </div>
+                                <div class="bg-[<%= user.order[0].panelColor %>] text-center px-4 py-4 text-[<%= user.order[0].textColor %>]">
+                                    <h3 class="text-xl">
+                                        <%= user.order[0].name %>
+                                    </h3>                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-1/2 mt-8">
+                            <h3 class="text-lg font-semibold">Price Breakdown</h3>
+                            <div class="px-10">
+                                <div class="flex mt-2 text-blue-500">
+                                <h4 class="w-1/3">Total MRP</h4>
+                                <h4>৳ <%= user.order[0].price %></h4>
+                                </div>
+                                <div class="flex mt-2">
+                                <h4 class="w-1/3">Discount on MRP</h4>
+                                <h4>৳ <%= user.order[0].discount %></h4>
+                                </div>
+                                <div class="flex mt-2">
+                                <h4 class="w-1/3">Platform Fee</h4>
+                                <h4>৳ 20</h4>
+                                </div>
+                                <div class="flex mt-2">
+                                <h4 class="w-1/3">Shipping Fee</h4>
+                                <h4>FREE</h4>
+                                </div>
+                                <div class="flex mt-2 text-orange-500">
+                                <h4 class="w-1/3">Order Status</h4>
+                                <h4>In Progress</h4>
+                                </div>
+                            </div>
+                            <div class="w-full h-[1px] bg-black my-2"></div>
+                            <div class="flex items-center pl-4">
+                                <h3 class="w-1/3 font-semibold text-xl">Total Amount BDT</h3>
+                                <h3 class="font-semibold text-xl text-green-600">৳ <%= bill %></h3>
+                            </div>
+                        </div>
+                        </div>
+                        <form action="/users/order/cancel" method="post" class="mt-8">
+                            <input
+                                class="px-5 py-2 rounded mt-3 bg-red-500 hover:bg-red-700 cursor-pointer text-white"
+                                type="submit"
+                                value="Cancel Ongoing Order"
+                            />
+                        </form>

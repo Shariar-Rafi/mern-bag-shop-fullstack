@@ -1,0 +1,39 @@
+<%- include('./partials/header') %>
+  
+    <% if(success.length>0){ %>
+        <div class="absolute top-5 left-20 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block my-1 text-white">
+                <%= success %>
+            </span>
+        </div>
+     <% } %>
+
+    <div class="min-h-screen flex flex-col items-center justify-center">
+        <div class="container px-10 py-20 flex flex-grow">
+            <main class="w-full bg-white p-8 shadow ml-4">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-4 text-blue-800">My Details:</h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input
+                            name="name"
+                            type="text"
+                            value="Name: <%= user.fullname %>"
+                            class="border p-2 rounded w-full"
+                            readonly
+                            />
+                            <input
+                            name="price"
+                            type="email"
+                            value="Email: <%= user.email %>"
+                            class="border p-2 rounded w-full"
+                            readonly
+                            />
+                        </div>
+                    </div>
+
+                        
+            </main>
+        </div>
+    </div>
+
+<%- include('./partials/footer') %>

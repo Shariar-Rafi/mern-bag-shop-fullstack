@@ -3,10 +3,18 @@ const isLoggedIn = require("../middlewares/isLoggedIn")
 const productModel = require("../models/product-model")
 const userModel = require("../models/user-model")
 const router = express.Router()
+const jwt = require("jsonwebtoken")
 
-router.get("/", (req,res)=>{
-    let error = req.flash("error")
-    res.render("index", {error, loggedIn: false})
+router.get("/", async(req,res)=>{
+    try {
+        if(req.cookies.token) return res.redirect("/shop");
+
+        let error = req.flash("error")
+        res.render("index", {error, loggedIn: false})
+
+    } catch (error) {
+        res.send(error.message)
+    }
 })
 
 
@@ -46,7 +54,8 @@ router.get("/cart",isLoggedIn, async(req,res)=>{
             res.redirect("/shop")
         }else{
             const bill = (Number(loggedUser.cart[0].price)+20)-Number(loggedUser.cart[0].discount)
-            res.render("cart", {user: loggedUser, bill})
+            let success = req.flash("success")
+            res.render("cart", {user: loggedUser, bill, success})
         }
     } catch (error) {
         res.send(error.message)
@@ -69,6 +78,25 @@ router.post("/cart/empty",isLoggedIn, async(req,res)=>{
     } catch (error) {
         res.send(error.message)
     }
+})
+
+router.post("/cart/order/:productid",isLoggedIn, async(req,res)=>{
+    try {
+        let loggedUser = await userModel.findOne({email: req.user.email})
+        if(loggedUser.order.length === 0){
+            loggedUser.order.push(req.params.productid)
+            loggedUser.cart.pop()
+            await loggedUser.save()
+            req.flash("success", "Your order has been set successfully.")
+            res.redirect("/shop")
+        }else{
+            req.flash("success", "Sorry, You already have an order in progress.")
+            res.redirect("/cart")
+        }
+    } catch (error) {
+        res.send(error.message)
+    }
+    
 })
 
 module.exports = router;

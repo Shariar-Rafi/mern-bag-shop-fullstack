@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 const ownerModel = require("../models/owner-model")
+const isLoggedIn = require("../middlewares/isLoggedIn")
 
 if(process.env.NODE_ENV == "development"){
     try {
@@ -26,11 +27,12 @@ if(process.env.NODE_ENV == "development"){
     }
 }
 
-router.get("/", (req,res)=>{
-    res.send("hey owners")
+router.get("/",  isLoggedIn, (req,res)=>{
+    // res.send("hey user!")
+    res.redirect("/owners/admin")
 })
 
-router.get("/admin", (req,res)=>{
+router.get("/admin", isLoggedIn, (req,res)=>{
     const success = req.flash("success")
     res.render("admin",{success})
 })
