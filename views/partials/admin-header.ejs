@@ -18,15 +18,10 @@
         <% var loggedIn = typeof loggedIn !== "undefined" ? loggedIn : true  %>
 
         <% if(loggedIn){ %>
-          <a href="/">Home</a>
-          <a href="/shop">Shop</a>
-          <a href="/owners/admin">Admin</a>
-          <a href="/users/profile">My Account</a>
-          <a href="/cart">Cart</a>
+          <a href="/shop" class="font-semibold">Go To Shop</a>
         </div>
         <div class="flex items-center gap-10">
-          <p>Welcome, <span class="font-semibold text-blue-600"><%= user?.fullname %></span>.</p>
-          <a class="text-red-600 font-medium" href="/users/logout">Logout</a>
+          <p>Welcome, <span class="font-semibold text-blue-600">Admin.</span></p>
         </div>
         <% } %>
     </nav>

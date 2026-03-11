@@ -14,10 +14,10 @@ const userSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "product"
     }],
-    orders:{
-        type: Array,
-        default: []
-    },
+    order:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product"
+    }],
 })
 
 module.exports = mongoose.model("user", userSchema)
