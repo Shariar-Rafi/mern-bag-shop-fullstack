@@ -3,27 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scatch</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <title>Scatch | Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+    </style>
   </head>
 
-  <body class="font-['helvetica_now_display']">
-    <nav class="w-full px-20 py-3 flex items-center justify-between">
-      <a href="/"><h3 class="text-xl italic">Scatch</h3></a>
-      <div class="flex gap-8">
-        <% var loggedIn = typeof loggedIn !== "undefined" ? loggedIn : true  %>
+  <body class="bg-stone-50 flex flex-col min-h-screen text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
+    <nav class="w-full px-6 md:px-20 py-5 flex items-center justify-between border-b border-zinc-200 bg-white shadow-sm sticky top-0 z-50">
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
+          <span class="text-white font-bold text-sm">S</span>
+        </div>
+        <h3 class="text-2xl font-bold tracking-tight">Scatch<span class="text-sm font-normal text-zinc-500 ml-2">Admin</span></h3>
+      </a>
+      
+      <% var loggedIn = typeof loggedIn !== "undefined" ? loggedIn : true  %>
+      <% if(loggedIn){ %>
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
+        <a href="/shop" class="hover:text-zinc-900 transition-colors flex items-center gap-2"><i class="ri-store-2-line text-lg"></i> Go To Shop</a>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <p class="text-sm text-zinc-600 hidden lg:block">Welcome, <span class="font-semibold text-zinc-900">Admin</span></p>
+      </div>
 
-        <% if(loggedIn){ %>
-          <a href="/shop" class="font-semibold">Go To Shop</a>
-        </div>
-        <div class="flex items-center gap-10">
-          <p>Welcome, <span class="font-semibold text-blue-600">Admin.</span></p>
-        </div>
-        <% } %>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-zinc-900 text-2xl active:scale-95 transition-transform">
+        <i class="ri-menu-4-line"></i>
+      </button>
+      <% } %>
     </nav>
-  </body>
-</html>
+
+    <!-- Mobile Sidebar -->
+    <% if(loggedIn){ %>
+    <div id="mobile-sidebar" class="fixed inset-0 z-[60] bg-black/50 opacity-0 hidden transition-opacity duration-300">
+        <div id="mobile-sidebar-content" class="absolute right-0 top-0 bottom-0 w-72 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b border-zinc-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">S</span>
+                    </div>
+                    <h3 class="text-xl font-bold tracking-tight">Menu</h3>
+                </div>
+                <button id="mobile-close-btn" class="text-zinc-500 hover:text-zinc-900 text-2xl active:scale-95 transition-transform">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-2 p-4 text-base font-medium text-zinc-600 flex-grow overflow-y-auto">
+                <a href="/shop" class="hover:text-zinc-900 hover:bg-zinc-50 transition-colors flex items-center gap-3 p-4 rounded-xl"><i class="ri-store-2-line text-xl"></i> Go To Shop</a>
+            </div>
+            <div class="p-6 border-t border-zinc-100 mt-auto bg-zinc-50">
+                <p class="text-sm text-zinc-600 mb-4">Welcome, <span class="font-semibold text-zinc-900">Admin</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileCloseBtn = document.getElementById('mobile-close-btn');
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
+
+            if (mobileMenuBtn && mobileCloseBtn && mobileSidebar && mobileSidebarContent) {
+                function openSidebar() {
+                    mobileSidebar.classList.remove('hidden');
+                    // Force DOM reflow
+                    void mobileSidebar.offsetWidth;
+                    mobileSidebar.classList.remove('opacity-0');
+                    mobileSidebarContent.classList.remove('translate-x-full');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                }
+
+                function closeSidebar() {
+                    mobileSidebarContent.classList.add('translate-x-full');
+                    mobileSidebar.classList.add('opacity-0');
+                    document.body.style.overflow = ''; // Restore scrolling
+                    setTimeout(() => {
+                        mobileSidebar.classList.add('hidden');
+                    }, 300); // Wait for transition to finish
+                }
+
+                mobileMenuBtn.addEventListener('click', openSidebar);
+                mobileCloseBtn.addEventListener('click', closeSidebar);
+                
+                // Close sidebar when clicking outside
+                mobileSidebar.addEventListener('click', (e) => {
+                    if (e.target === mobileSidebar) {
+                        closeSidebar();
+                    }
+                });
+            }
+        });
+    </script>
+    <% } %>

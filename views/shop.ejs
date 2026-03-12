@@ -1,40 +1,61 @@
 <%- include('./partials/header') %>
-    <% if(success.length>0){ %>
-      <div class="absolute top-5 left-20 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-          <span class="inline-block my-1 text-white">
-              <%= success %>
-          </span>
-      </div>
-    <% } %>
 
-  <div class="w-full h-screen px-20 py-20">
-      <div class="flex items-center justify-center gap-5 flex-wrap">
-        <% if(products.length > 0){ %>
-          <% products.forEach((product)=>{ %>
-              <div class="w-60">
-                  <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgColor %>]">
-                      <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                          alt="<%= product.name %>">
-                  </div>
-                  <div
-                      class="flex justify-between bg-[<%= product.panelColor %>] items-center px-4 py-4 text-[<%= product.textColor %>]">
-                      <div>
-                          <h3>
-                              <%= product.name %>
-                          </h3>
-                          <h4>৳ <%= product.price %>
-                          </h4>
-                      </div>
-                      <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="/addtocart/<%= product._id %>">
-                          <i class="ri-add-line"></i>
-                      </a>
-                  </div>
-              </div>
-          <% }) %>
-        <% } else{ %>
-          <p class="text-red-500">No product available.</p>
-        <% } %>
-      </div>
+<% if(typeof success !== 'undefined' && success.length > 0){ %>
+  <div class="absolute top-20 right-10 z-50 p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 shadow-md">
+      <p class="font-medium flex items-center gap-2"><i class="ri-checkbox-circle-fill text-lg"></i> <%= success %></p>
   </div>
+<% } %>
+
+<main class="flex-grow w-full max-w-7xl mx-auto px-6 md:px-20 py-12">
+    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+            <h1 class="text-4xl font-bold tracking-tight mb-2">Our Collection</h1>
+            <p class="text-zinc-500 text-lg">Discover the perfect bag for every occasion.</p>
+        </div>
+        <div class="flex items-center gap-2 text-sm text-zinc-500 bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm">
+            <i class="ri-stack-line"></i> <span class="font-bold text-zinc-900"><%= typeof products !== 'undefined' ? products.length : 0 %></span> products found
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-8 justify-center lg:justify-start">
+        <% if(typeof products !== 'undefined' && products.length > 0){ %>
+            <% products.forEach((product)=>{ %>
+                <div class="w-full sm:w-72 flex flex-col group rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-zinc-200 bg-white transform hover:-translate-y-1">
+                    <div class="w-full h-64 flex items-center justify-center relative overflow-hidden bg-[<%= product.bgColor %>]">
+                        <img class="h-48 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500 ease-out" 
+                             src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                             alt="<%= product.name %>">
+                        <!-- minimal overlay gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
+                    
+                    <div class="flex flex-col justify-between flex-grow p-6 bg-[<%= product.panelColor %>] text-[<%= product.textColor %>]">
+                        <div class="mb-5">
+                            <h3 class="text-lg font-bold truncate tracking-tight"><%= product.name %></h3>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <h4 class="text-2xl font-bold">৳ <%= product.price %></h4>
+                                <% if(product.discount > 0) { %>
+                                    <span class="text-sm line-through opacity-70">৳ <%= Number(product.price) + Number(product.discount) %></span>
+                                <% } %>
+                            </div>
+                        </div>
+                        <a class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/90 backdrop-blur-sm text-zinc-900 font-medium hover:bg-white active:scale-95 transition-all shadow-sm border border-zinc-200/50 hover:shadow" 
+                           href="/addtocart/<%= product._id %>">
+                            <i class="ri-shopping-cart-2-line text-lg"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="w-full py-24 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-dashed border-zinc-300">
+                <div class="w-24 h-24 bg-zinc-50 rounded-full flex items-center justify-center mb-6">
+                    <i class="ri-shopping-bag-3-fill text-4xl text-zinc-300"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-zinc-900 mb-2">No products found</h3>
+                <p class="text-zinc-500 max-w-md">We currently don't have any products available in the shop. Please check back later!</p>
+            </div>
+        <% } %>
+    </div>
+</main>
 
 <%- include('./partials/footer') %>

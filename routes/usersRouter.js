@@ -43,7 +43,7 @@ router.get("/orders",isLoggedIn,async(req,res)=>{
         .populate("order")
 
         if(loggedUser.order.length === 0){
-            req.flash("success","No orders found! Order something to see the details.")
+            req.flash("success","No orders found!")
             res.status(200).redirect("/shop")
         }else{
             const bill = (Number(loggedUser.order[0].price)+20)-Number(loggedUser.order[0].discount)

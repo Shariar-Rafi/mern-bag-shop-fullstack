@@ -1,78 +1,70 @@
 <%- include('./partials/header') %>
 
-  <% if(error.length>0){ %>
-    <div class="absolute top-5 left-20  -translate-y-1/2 p-3 rounded-md bg-red-500">
-        <span class="inline-block my-1 text-white">
-            <%= error %>
-        </span>
-    </div>
-  <% } %>
-
-  <div class="w-full h-screen flex items-center flex-col lg:flex-row px-5 md:px-10 lg:px-20">
-      <div class="w-full lg:w-1/2 flex items-center justify-center h-screen">
-        <div class="w-full px-32">
-          <h3 class="text-4xl">
-            welcome to <span class="text-blue-400 font-semibold">Scatch</span>
-          </h3>
-          <h4 class="text-2xl mb-5">create your account</h4>
-          <form autocomplete="off" action="/users/register" method="post">
-            <input
-              class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-              type="text"
-              placeholder="Full Name"
-              name="fullname"
-              required
-            />
-            <input
-              class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-              type="email"
-              placeholder="Email"
-              name="email"
-              required
-            />
-            <input
-              class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-              type="password"
-              placeholder="Password"
-              name="password"
-              required
-            />
-            <input
-              class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white cursor-pointer"
-              type="submit"
-              value="Create My Account"
-            />
-          </form>
-        </div>
-      </div>
-      <p class="text-xl font-bold">Or,</p>
-
-      <div class="w-full lg:w-1/2 flex items-center justify-center h-screen">
-        <div class="w-full px-32">
-          <h4 class="text-2xl capitalize mb-5">login your account</h4>
-          <form autocomplete="off" action="/users/login" method="post">
-            <input
-              class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-              type="email"
-              placeholder="Email"
-              name="email"
-              required
-            />
-            <input
-              class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-              type="password"
-              placeholder="Password"
-              name="password"
-              required
-            />
-            <input
-              class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white cursor-pointer"
-              type="submit"
-              value="Login"
-            />
-          </form>
-        </div>
-      </div>
+<% if(typeof error !== 'undefined' && error.length > 0){ %>
+  <div class="absolute top-20 right-10 z-50 p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 shadow-md">
+      <p class="font-medium flex items-center gap-2"><i class="ri-error-warning-fill text-lg"></i> <%= error %></p>
   </div>
+<% } %>
+
+<main class="flex-grow flex flex-col lg:flex-row w-full max-w-7xl mx-auto px-6 md:px-20 py-10 gap-10 lg:gap-20 pb-20">
+    
+    <!-- Welcome / Register Section -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center">
+        <div class="max-w-md w-full mx-auto lg:mx-0">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2">
+                Welcome to <span class="bg-gradient-to-r from-zinc-900 to-zinc-600 bg-clip-text text-transparent">Scatch</span>
+            </h1>
+            <p class="text-zinc-500 mb-8 text-lg">Create an account to start exploring our premium bags.</p>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-zinc-200">
+                <h2 class="text-2xl font-bold mb-6 tracking-tight">Create Account</h2>
+                <form autocomplete="off" action="/users/register" method="post" class="space-y-4">
+                    <div>
+                        <input class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-400" type="text" placeholder="Full Name" name="fullname" required />
+                    </div>
+                    <div>
+                        <input class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-400" type="email" placeholder="Email Address" name="email" required />
+                    </div>
+                    <div>
+                        <input class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-400" type="password" placeholder="Password" name="password" required />
+                    </div>
+                    <button type="submit" class="w-full py-3 mt-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl font-medium transition-colors shadow-md cursor-pointer">Create My Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Divider for Mobile / Or -->
+    <div class="hidden lg:flex items-center justify-center">
+        <div class="h-full w-px bg-zinc-200 relative">
+            <div class="absolute top-1/2 -translate-y-1/2 -ml-3 bg-stone-50 py-4 text-zinc-400 font-medium">OR</div>
+        </div>
+    </div>
+    <div class="flex lg:hidden items-center justify-center w-full py-4">
+        <div class="h-px w-full bg-zinc-200 relative">
+            <div class="absolute left-1/2 -translate-x-1/2 -mt-3 bg-stone-50 px-4 text-zinc-400 font-medium">OR</div>
+        </div>
+    </div>
+
+    <!-- Login Section -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center">
+        <div class="max-w-md w-full mx-auto lg:mx-0">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-zinc-200">
+                <h2 class="text-2xl font-bold mb-2 tracking-tight">Welcome Back</h2>
+                <p class="text-zinc-500 mb-6 text-sm">Log in to your account with your credentials.</p>
+                <form autocomplete="off" action="/users/login" method="post" class="space-y-4">
+                    <div>
+                        <input class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-400" type="email" placeholder="Email Address" name="email" required />
+                    </div>
+                    <div>
+                        <input class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-400" type="password" placeholder="Password" name="password" required />
+                    </div>
+                    <button type="submit" class="w-full py-3 mt-2 bg-white border-2 border-zinc-900 text-zinc-900 hover:bg-zinc-50 hover:text-zinc-950 rounded-xl font-medium transition-colors shadow-sm cursor-pointer">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
 
 <%- include('./partials/footer') %>
