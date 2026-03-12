@@ -2,12 +2,14 @@ const express = require("express")
 const router = express.Router()
 const upload = require("../config/multer-config")
 const productModel = require("../models/product-model")
+const isLoggedIn = require("../middlewares/isLoggedIn")
 
-router.get("/", (req,res)=>{
-    res.send("hey")
+router.get("/", isLoggedIn, (req,res)=>{
+    // res.send("hey")
+    res.redirect("/owners/admin")
 })
 
-router.post("/create", upload.single('image'), async (req,res)=>{
+router.post("/create", isLoggedIn, upload.single('image'), async (req,res)=>{
     try {
         let {name, price, discount, bgcolor, panelcolor, textcolor } = req.body;
 

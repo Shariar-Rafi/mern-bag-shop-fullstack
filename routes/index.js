@@ -3,7 +3,6 @@ const isLoggedIn = require("../middlewares/isLoggedIn")
 const productModel = require("../models/product-model")
 const userModel = require("../models/user-model")
 const router = express.Router()
-const jwt = require("jsonwebtoken")
 
 router.get("/", async(req,res)=>{
     try {
@@ -98,5 +97,6 @@ router.post("/cart/order/:productid",isLoggedIn, async(req,res)=>{
     }
     
 })
+
 
 module.exports = router;

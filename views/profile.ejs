@@ -10,25 +10,53 @@
 
     <div class="min-h-screen flex flex-col items-center justify-center">
         <div class="container px-10 py-20 flex flex-grow">
-            <main class="w-full bg-white p-8 shadow ml-4">
+            <main class="w-full bg-white">
                     <div class="mb-8">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">My Details:</h2>
-                        <div class="grid grid-cols-2 gap-4">
+                        <h2 class="text-3xl font-bold text-blue-800 mb-4">My Profile <span class="text-sm font-semibold text-gray-600">(<%= user.email %>)</span></h2>
+                        <% if(user.profilePic){ %>
+                            <div class="size-52 rounded-xl overflow-hidden mb-4">
+                                <img class="object-cover size-full" src="data:image/jpeg;base64,<%= user.profilePic?.toString('base64') %>" alt="Profile Picture">
+                            </div>
+                        <% } %>
+                        
+                        <form class="flex flex-col w-1/2 gap-4 border border-gray-200 p-8 rounded w-fit" autocomplete="off" action="/users/profile/update" enctype="multipart/form-data" method="post">
+                            <div class="flex items-center gap-3">
+                                <label for="profilePic">Update Profile Picture:</label>
+                                <input
+                                id="profilePic"
+                                name="profilePic"
+                                type="file"
+                                class="border p-2 rounded"
+                                />
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <label for="fullname">Full Name:</label>
+                                <input
+                                id="fullname"
+                                name="fullname"
+                                type="text"
+                                value="<%= user.fullname %>"
+                                class="border p-2 rounded "
+                                />
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <label for="contact">Contact:</label>
+                                <input
+                                id="contact"
+                                name="contact"
+                                type="text"
+                                value="<%= user.contact %>"
+                                class="border p-2 rounded "
+                                />
+                            </div>
+
                             <input
-                            name="name"
-                            type="text"
-                            value="Name: <%= user.fullname %>"
-                            class="border p-2 rounded w-full"
-                            readonly
+                            type="submit"
+                            value="Update Profile"
+                            class="px-6 py-2 rounded-sm text-white bg-orange-500 hover:bg-orange-700 cursor-pointer w-fit"
                             />
-                            <input
-                            name="price"
-                            type="email"
-                            value="Email: <%= user.email %>"
-                            class="border p-2 rounded w-full"
-                            readonly
-                            />
-                        </div>
+                        </form>
                     </div>
 
                         

@@ -3,6 +3,7 @@ const router = express.Router()
 const {registerUser, loginUser, logoutUser} = require("../controllers/authContoller")
 const isLoggedIn = require("../middlewares/isLoggedIn")
 const userModel = require("../models/user-model")
+const upload = require("../config/multer-config")
 
 
 router.get("/", (req,res)=>{
@@ -13,14 +14,25 @@ router.get("/", (req,res)=>{
 
 router.get("/profile",isLoggedIn,async(req,res)=>{
     try {
-        let loggedUser = await userModel
-        .findOne({email: req.user.email})
-        .populate("order")
-        const bill = (Number(loggedUser.order[0].price)+20)-Number(loggedUser.order[0].discount)
+        let loggedUser = await userModel.findOne({email: req.user.email})
         let success = req.flash("success")
-        res.render("profile", {success, user: loggedUser, bill})
+        res.render("profile", {success, user: loggedUser})
     } catch (error) {
         res.send(error.message);
+    }
+})
+
+router.post("/profile/update",isLoggedIn,upload.single("profilePic"), async(req,res)=>{
+    try {
+        let {fullname, contact} = req.body
+        await userModel.findOneAndUpdate({email: req.user.email},{fullname, contact},{new:true})
+        if(req.file){
+            await userModel.findOneAndUpdate({email: req.user.email},{profilePic: req.file.buffer},{new:true})
+        }
+        req.flash("success","Profile updated successfully!")
+        res.redirect("/users/profile")
+    } catch (error) {
+        console.log(error.message);
     }
 })
 

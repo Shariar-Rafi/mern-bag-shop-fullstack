@@ -8,8 +8,11 @@ const userSchema = mongoose.Schema({
     },
     email: String,
     password: String,
-    profilePic: String,
-    contact: Number,
+    profilePic: {
+        type: Buffer,
+        default: null,
+    },
+    contact: String,
     cart:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "product"
