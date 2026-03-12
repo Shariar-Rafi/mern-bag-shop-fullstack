@@ -1,6 +1,6 @@
 # MERN Bag Shop Fullstack
 
-![Bag Shop Screenshot](1.png)
+![Bag Shop Screenshot](./screenshots/1.png)
 
 A full-stack "Bag Shop" web application. This project provides an intuitive platform where users can browse and manage bags available in the shop.
 
@@ -18,7 +18,7 @@ You need to have the following installed on your machine:
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repository-url>
+   https://github.com/Shariar-Rafi/mern-bag-shop-fullstack.git
    ```
 
 2. **Navigate into the project directory:**
@@ -32,27 +32,24 @@ You need to have the following installed on your machine:
    ```
 
 4. **Set up Environment Variables:**
-   Create a `.env` file in the root directory and define the required environment variables (such as your `MONGODB_URI`, `PORT`, `JWT_KEY`, etc.):
+   Create a `.env` file in the root directory and define the required environment variables given bellow):
    ```env
-   PORT=3000
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_KEY=your_jwt_secret
-   # Add other relevant environment variables
+   NODE_ENV=development
+   JWT_KEY=secret_key
+   EXPRESS_SESSION_SECRET=keyboard123cat
    ```
 
 5. **Run the project:**
    ```bash
-   npm start
-   # Or using nodemon:
-   # npm run dev
+    nodemon .\app.js
    ```
-   Open `http://localhost:3000` (or the port you defined) in your browser to view the application!
+   Open `http://localhost:3000` in your browser to view the application!
 
 ---
 
 ## Dummy Data
 
-After you have set up and run everything, you can use the **dummy bags data** that is already included in the project. If you want to create products quickly on the admin panel, simply open the `dummy_bags_data` folder in the project and use the contents there to populate the application!
+After you have set up and run everything, you can use the **dummy bags data** that is already included in the project. If you want to create products quickly on the admin panel, simply open the `dummy_bags_data` folder in the project and use the contents there!
 
 ---
 
