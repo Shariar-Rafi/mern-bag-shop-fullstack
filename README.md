@@ -12,6 +12,8 @@ It is built with a powerful modern tech stack, incorporating scalable back-end a
 - **MongoDB & Mongoose**: Used as the primary database to store user and product data securely.
 - **EJS (Embedded JavaScript)**: Powers the dynamic front-end rendered views.
 - **Tailwind CSS**: Ensures the UI is beautiful, modern, and fully responsive across all devices.
+- **Multer**: Handles file uploads (images) securely and efficiently.
+- **Cookie-Parser**: Parses cookies from incoming requests.
 - **JSON Web Tokens (JWT) & bcrypt**: Secures user authentication and encrypts sensitive information.
 - **Express-Session & Connect-Flash**: Manages secure user sessions and provides seamless feedback messages.
 
