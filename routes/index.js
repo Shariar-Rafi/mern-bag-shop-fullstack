@@ -21,7 +21,8 @@ router.get("/shop",isLoggedIn, async(req,res)=>{
     let products = await productModel.find()
     let loggedUser = await userModel.findOne({email: req.user.email})
     let success = req.flash("success")
-    res.render("shop",{ products, user: loggedUser, success })
+    let error = req.flash("error")
+    res.render("shop",{ products, user: loggedUser, success, error })
 })
 
 router.get("/addtocart/:productid",isLoggedIn,async (req,res)=>{
@@ -34,7 +35,7 @@ router.get("/addtocart/:productid",isLoggedIn,async (req,res)=>{
             req.flash("success", "Added to cart.")
             res.redirect("/shop")
         }else{
-            req.flash("success", "Your cart is not empty.")
+            req.flash("error", "Your cart is not empty.")
             res.redirect("/shop")
         }
     } catch (error) {
@@ -49,7 +50,7 @@ router.get("/cart",isLoggedIn, async(req,res)=>{
         .populate("cart")
 
         if(loggedUser.cart.length === 0){
-            req.flash("success", "Your cart is empty!")
+            req.flash("error", "Your cart is empty!")
             res.redirect("/shop")
         }else{
             const bill = (Number(loggedUser.cart[0].price)+20)-Number(loggedUser.cart[0].discount)

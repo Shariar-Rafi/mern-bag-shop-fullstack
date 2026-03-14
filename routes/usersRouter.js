@@ -9,7 +9,8 @@ const upload = require("../config/multer-config")
 router.get("/", (req,res)=>{
     // res.send("hey user!")
     let success = req.flash("success")
-    res.redirect("/users/profile", {success})
+    let error = req.flash("error")
+    res.redirect("/users/profile", {success, error})
 })
 
 router.get("/profile",isLoggedIn,async(req,res)=>{
@@ -43,7 +44,7 @@ router.get("/orders",isLoggedIn,async(req,res)=>{
         .populate("order")
 
         if(loggedUser.order.length === 0){
-            req.flash("success","No orders found!")
+            req.flash("error","No orders found!")
             res.status(200).redirect("/shop")
         }else{
             const bill = (Number(loggedUser.order[0].price)+20)-Number(loggedUser.order[0].discount)
