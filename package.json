@@ -1,23 +1,23 @@
 {
-  "name": "mern-bag-shop-fullstack",
+  "name": "Scatch-Bag-Shop",
   "version": "1.0.0",
-  "description": "\"Bag Shop\" full stack MERN project.",
+  "description": "\"Bag Shop\" full stack project.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shariar-Rafi/mern-bag-shop-fullstack.git"
+    "url": "git+https://github.com/Shariar-Rafi/Scatch-Bag-Shop.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Shariar-Rafi/mern-bag-shop-fullstack/issues"
+    "url": "https://github.com/Shariar-Rafi/Scatch-Bag-Shop/issues"
   },
-  "homepage": "https://github.com/Shariar-Rafi/mern-bag-shop-fullstack#readme",
+  "homepage": "https://github.com/Shariar-Rafi/Scatch-Bag-Shop#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "config": "^4.4.1",

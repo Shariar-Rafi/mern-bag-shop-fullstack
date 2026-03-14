@@ -1,4 +1,4 @@
-# MERN Bag Shop Fullstack
+# Scatch-Bag-Shop Fullstack
 
 ![Bag Shop Screenshot](./screenshots/1.png)
 
@@ -11,28 +11,33 @@ To get a local copy up and running on your PC, follow these simple steps.
 ### Prerequisites
 
 You need to have the following installed on your machine:
+
 - Node.js
 - MongoDB (running locally or a MongoDB Atlas URI)
 
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
-   https://github.com/Shariar-Rafi/mern-bag-shop-fullstack.git
+   https://github.com/Shariar-Rafi/Scatch-Bag-Shop.git
    ```
 
 2. **Navigate into the project directory:**
+
    ```bash
-   cd mern-bag-shop-fullstack
+   cd Scatch-Bag-Shop
    ```
 
 3. **Install the dependencies:**
+
    ```bash
    npm install
    ```
 
 4. **Set up Environment Variables:**
    Create a `.env` file in the root directory and define the required environment variables given bellow):
+
    ```env
    NODE_ENV=development
    JWT_KEY=secret_key
@@ -60,5 +65,6 @@ At the moment, any user who logs in can access all features and can do everythin
 
 **What's coming next:**
 In the next version, I will introduce Role-Based Access Control and set up 2 different types of users:
+
 1. **Normal Users:** Who can see and buy bags.
 2. **Admin User / Owner:** Who can only create, edit, and delete products.
