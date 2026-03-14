@@ -4,9 +4,10 @@ const {registerUser, loginUser, logoutUser} = require("../controllers/authContol
 const isLoggedIn = require("../middlewares/isLoggedIn")
 const userModel = require("../models/user-model")
 const upload = require("../config/multer-config")
+const { updateUserProfile, cancelOrder } = require("../controllers/userController")
 
 
-router.get("/", (req,res)=>{
+router.get("/", isLoggedIn, (req,res)=>{
     // res.send("hey user!")
     let success = req.flash("success")
     let error = req.flash("error")
@@ -20,20 +21,6 @@ router.get("/profile",isLoggedIn,async(req,res)=>{
         res.render("profile", {success, user: loggedUser})
     } catch (error) {
         res.send(error.message);
-    }
-})
-
-router.post("/profile/update",isLoggedIn,upload.single("profilePic"), async(req,res)=>{
-    try {
-        let {fullname, contact} = req.body
-        await userModel.findOneAndUpdate({email: req.user.email},{fullname, contact},{new:true})
-        if(req.file){
-            await userModel.findOneAndUpdate({email: req.user.email},{profilePic: req.file.buffer},{new:true})
-        }
-        req.flash("success","Profile updated.")
-        res.redirect("/users/profile")
-    } catch (error) {
-        console.log(error.message);
     }
 })
 
@@ -56,17 +43,9 @@ router.get("/orders",isLoggedIn,async(req,res)=>{
 
 })
 
-router.post("/order/cancel", isLoggedIn, async(req,res)=>{
-    try {
-        let loggedUser = await userModel.findOne({email: req.user.email})
-        loggedUser.order.pop()
-        await loggedUser.save()
-        req.flash("success", "Your ongoing order has been canceled.")
-        res.redirect("/shop")
-    } catch (error) {
-        res.send(error.message)
-    }
-})
+router.post("/profile/update",isLoggedIn,upload.single("profilePic"), updateUserProfile)
+
+router.post("/order/cancel", isLoggedIn, cancelOrder)
 
 // --------------------------auth------------------------------
 router.post("/register", registerUser )
