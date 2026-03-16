@@ -1,7 +1,5 @@
 # Scatch-Bag-Shop Fullstack
 
-![Scatch Bag Shop Screenshot](./screenshots/1.png)
-
 **Scatch Bag Shop** is a simple, full-stack e-commerce web app for browsing and purchasing bags. It features a responsive UI for shoppers and an admin interface for managing products.
 
 Built with a modern tech stack (Express.js, Node.js, MongoDB, EJS, Tailwind CSS) for a scalable backend and clean frontend.
@@ -17,6 +15,10 @@ Built with a modern tech stack (Express.js, Node.js, MongoDB, EJS, Tailwind CSS)
 - **JSON Web Tokens (JWT) & bcrypt**: Secures user authentication and encrypts sensitive information.
 - **Express-Session & Connect-Flash**: Manages secure user sessions and provides seamless feedback messages.
 
+## Screenshots
+![Scatch Bag Shop Screenshot](./screenshots/1.png)
+![Scatch Bag Shop Screenshot](./screenshots/3.png)
+
 ## Getting Started
 
 To get a local copy up and running on your PC, follow these simple steps.
@@ -26,7 +28,7 @@ To get a local copy up and running on your PC, follow these simple steps.
 You need to have the following installed on your machine:
 
 - Node.js
-- MongoDB (running locally or a MongoDB Atlas URI)
+- MongoDB (running locally)
 
 ### Installation
 
@@ -49,7 +51,7 @@ You need to have the following installed on your machine:
    ```
 
 4. **Set up Environment Variables:**
-   Create a `.env` file in the root directory and define the required environment variables given bellow):
+   Create a `.env` file in the root directory and define the required environment variables as given bellow):
 
    ```env
    NODE_ENV=development
